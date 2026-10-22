@@ -75,7 +75,7 @@ Papa.parse('fashionbrand.csv', {
               type: 'linear',
               title: {
                 display: true,
-                text: 'Streams for US Monthly Minimum Wage'
+                text: 'Global Fashion Brand Ranking'
               }
             }
           }
