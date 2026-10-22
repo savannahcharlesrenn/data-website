@@ -43,9 +43,9 @@ Papa.parse('fashionbrand.csv', {
 });
 
 Papa.parse('fashionbrand.csv', {
-  download: true,
-  header: true,
-  skipEmptyLines: true,
+    download: true,
+    header: true,
+    skipEmptyLines: true,
  
   complete: function(results) {
  
@@ -53,9 +53,11 @@ Papa.parse('fashionbrand.csv', {
     const values = [];
  
     results.data.forEach(row => {
-      labels.push(row.Platform);
-      values.push(cleanNumber(row.StreamsForUSMonthlyMinimumWage));
-    });
+    if (row.BrandName && row.Rank2020) {
+        labels.push(row.BrandName);
+        values.push(cleanNumber(row.Rank2020));
+    }
+});
  
     new Chart(
       document.getElementById('revenueChart'),
@@ -64,7 +66,7 @@ Papa.parse('fashionbrand.csv', {
         data: {
           labels: labels,
           datasets: [{
-            label: 'Streams for US Monthly Minimum Wage',
+            label: 'Fashion Brand Ranking',
             data: values,
             backgroundColor: '#4e79a7'
           }]
