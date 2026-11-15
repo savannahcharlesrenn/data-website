@@ -10,7 +10,7 @@ Papa.parse('fashionbrand.csv', {
  
     results.data.forEach(row => {
       labels.push(row.Platform);
-      values.push(cleanNumber(row.StreamsForUSMonthlyMinimumWage));
+      values.push(cleanNumber(row.GlobalFashionBrandRanking));
     });
  
     new Chart(
@@ -20,7 +20,7 @@ Papa.parse('fashionbrand.csv', {
         data: {
           labels: labels,
           datasets: [{
-            label: 'Streams for US Monthly Minimum Wage',
+            label: 'Global Fashion Brand Ranking',
             data: values,
             backgroundColor: '#4e79a7'
           }]
@@ -31,7 +31,7 @@ Papa.parse('fashionbrand.csv', {
               type: 'linear',
               title: {
                 display: true,
-                text: 'Streams for US Monthly Minimum Wage'
+                text: 'Global Fashion Brand Ranking'
               }
             }
           }
