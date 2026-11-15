@@ -2,90 +2,47 @@ Papa.parse('fashionbrand.csv', {
   download: true,
   header: true,
   skipEmptyLines: true,
+
   complete: function(results) {
     console.log("running");
     console.log(results.data);
+
     const tbody = document.querySelector('#dataTable tbody');
- 
+
     results.data.forEach(row => {
- 
+
+      // Skip rows without a brand name
+      if (!row.BrandName) return;
+
       const tr = document.createElement('tr');
- 
+
       tr.innerHTML = `
-        <td>BrandName</td>
-        <td>Brand Country Origin</td>
-        <td>Brand Sector</td>
-        <td>Rank 2016</td>
-        <td>Rank 2017</td>
-        <td>Rank 2018</td>
-        <td>Rank 2019</td>
-        <td>Rank 2020</td>
-        <td>Equity 2016</td>
-        <td>Equity 2017</td>
-        <td>Equity 2018</td>
-        <td>Equity 2019</td>
-        <td>Equity 2020</td>
-        <td>Growth Rate 2016</td>
-        <td>Growth Rate 2017</td>
-        <td>Growth Rate 2018</td>
-        <td>Growth Rate 2019</td>
-        <td>Growth Rate 2020</td>
+        <td>${row.BrandName}</td>
+        <td>${row.BrandOriginCountry}</td>
+        <td>${row.BrandSubSector}</td>
+        <td>${row.Rank2016}</td>
+        <td>${row.Rank2017}</td>
+        <td>${row.Rank2018}</td>
+        <td>${row.Rank2019}</td>
+        <td>${row.Rank2020}</td>
+        <td>${row.Equity2016}</td>
+        <td>${row.Equity2017}</td>
+        <td>${row.Equity2018}</td>
+        <td>${row.Equity2019}</td>
+        <td>${row.Equity2020}</td>
+        <td>${row.GrowthRate2016}</td>
+        <td>${row.GrowthRate2017}</td>
+        <td>${row.GrowthRate2018}</td>
+        <td>${row.GrowthRate2019}</td>
+        <td>${row.GrowthRate2020}</td>
       `;
- 
-      tbody.appendChild(tr); 
+
+      tbody.appendChild(tr);
     });
   },
- 
+
   error: function(err) {
     console.error("FAILED");
     console.error(err);
   }
 });
-Papa.parse('fashionbrand.csv', {
-    download: true,
-    header: true,
-    skipEmptyLines: true,
- 
-  complete: function(results) {
- 
-    const labels = [];
-    const values = [];
- 
-   results.data.forEach(row => {
-    if (row.BrandName && row.Rank2020) {
-        labels.push(row.BrandName);
-        values.push(cleanNumber(row.Rank2020));
-    }
-});
-    new Chart(
-      document.getElementById('revenueChart'),
-      {
-        type: 'bar',
-        data: {
-          labels: labels,
-          datasets: [{
-            label: 'Streams for US Monthly Minimum Wage',
-            data: values,
-            backgroundColor: '#4e79a7'
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              type: 'linear',
-              title: {
-                display: true,
-                text: 'Streams for US Monthly Minimum Wage'
-              }
-            }
-          }
-        }
-      }
-    );
-  }
-});
-function cleanNumber(value) {
-  return Number(
-    String(value).replace(/[^0-9.-]/g, '')
-  );
-}
